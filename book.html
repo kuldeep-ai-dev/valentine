@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOVE BOOK BY KULDEEP</title>
+     <style>
+      * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background-image: radial-gradient(
+      circle farthest-corner at 50% 50%,
+      hsl(187 20% 88%) 30%,
+      hsl(149 20% 94%) 100%
+  );
+}
+
+.book {
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: 42cqmin; /* Increased width */
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition: translate 1s;
+  translate: calc(min(var(--c), 1) * 50%) 0%;
+  rotate: 1 0 0 30deg;
+}
+
+.page {
+  --thickness: 4;
+  flex: none;
+  display: flex;
+  width: 100%;
+  font-size: 2.2cqmin; /* Slightly increased font size */
+  pointer-events: all;
+  user-select: none;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s,
+      rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+  translate: calc(var(--i) * -100%) 0px 0px;
+  transform: translateZ(calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * 0.23cqmin)));
+  rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+}
+
+.front,
+.back {
+  position: relative;
+  flex: none;
+  width: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background-color: #fff;
+  translate: 0px;
+}
+
+.back {
+  translate: -100% 0;
+  rotate: 0 1 0 180deg;
+}
+
+.book {
+  counter-reset: page -1;
+}
+
+.book a {
+  color: inherit;
+}
+
+.page {
+  box-shadow: 0em 0.5em 1em -0.2em #00000020;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  padding: 2em;
+  border: 1px solid #0002;
+}
+
+.front:has(img),
+.back:has(img) {
+  padding: 0;
+}
+
+.front img,
+.back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.front::after,
+.back::after {
+  position: absolute;
+  bottom: 1em;
+  counter-increment: page;
+  content: counter(page) ".";
+  font-size: 0.8em;
+}
+
+.cover::after {
+  content: "";
+}
+
+.front::after {
+  right: 1em;
+}
+
+.front {
+  background: linear-gradient(to left, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.1em 0.5em 0.5em 0.1em;
+}
+
+.back::after {
+  left: 1em;
+}
+
+.back {
+  background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.5em 0.1em 0.1em 0.5em;
+}
+
+.cover {
+  background: radial-gradient(
+          circle farthest-corner at 80% 20%,
+          hsl(150 80% 20% / 0.3) 0%,
+          hsl(170 60% 10% / 0.1) 100%
+      ),
+      hsl(231, 32%, 29%) url("./cover.jpg") 50% / cover;
+  color: hsl(0, 100%, 30%); /* Dark red text color for cover page */
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1px;
+  color: hsl(0, 100%, 30%); /* Dark red heading color */
+}
+
+p {
+  margin-top: 1px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: hsl(0, 100%, 30%); /* Dark red text color for paragraphs */
+}
+
+.front,
+.back {
+  padding: 1.5em;
+  color: hsl(0, 100%, 30%); /* Dark red text color for front and back pages */
+}
+
+.book {
+  width: 40cqmin; /* Slightly increased width */
+}
+
+.page {
+  font-size: 2cqmin; /* Slightly increased font size */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5em;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background: linear-gradient(to right, #ff7eb9, #ff65a3, #ff165d);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Emoji Animation */
+.emoji {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0;
+  animation: floatEmojis 6s ease-in-out infinite;
+}
+
+@keyframes floatEmojis {
+  0% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(20deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+}
+
+/* Add random timing for each emoji */
+.emoji:nth-child(1) {
+  animation-delay: 0s;
+  left: 10%;
+}
+.emoji:nth-child(2) {
+  animation-delay: 1s;
+  left: 20%;
+}
+.emoji:nth-child(3) {
+  animation-delay: 2s;
+  left: 30%;
+}
+.emoji:nth-child(4) {
+  animation-delay: 3s;
+  left: 40%;
+}
+.emoji:nth-child(5) {
+  animation-delay: 4s;
+  left: 50%;
+}
+.emoji:nth-child(6) {
+  animation-delay: 5s;
+  left: 60%;
+}
+.emoji:nth-child(7) {
+  animation-delay: 6s;
+  left: 70%;
+}
+.emoji:nth-child(8) {
+  animation-delay: 7s;
+  left: 80%;
+}
+.emoji:nth-child(9) {
+  animation-delay: 8s;
+  left: 90%;
+}
+
+
+     </style>
+  </head>
+  <body>
+    <div class="book">
+      <div class="page">
+        <div class="front cover">
+          <h1
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+            A Message for Shonaaa
+          </h1>
+
+          <p
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+            2025 valentines.<br />
+          </p>
+        </div>
+        <div class="back">
+          <h2>A Special Beginning ❤️✨</h2>
+
+       <p>Shonaa rehh you thought na ki ham har chiz mai excited rehta hai but how come im not excited for this valentines day, because your shoan is 
+          a developer we like celebrating things in a different way. So this was my plan to surprice you with something which i thing you will like it.
+          its not something very big but its something cute which represents a developer partner.
+       </p>
+
+          <p>
+            So Through this small e book, I present you the Love Diary <br /> let's Start.
+          </p>
+        </div>
+      </div>
+      <!--2nd page-->
+      <div class="page">
+        <div class="front">
+          <h2>From Strangers to Something Special ❤️✨</h2>
+          <p>
+            It’s incredible to think how, just a year back, you didn’t even like me. Meeting you through hindi class was a moment of fate that I’ll always be grateful for.
+            We came so long together that its been alomost one and a half year, we both are getting to see what we truly are, sometimes the time goes down in our relationship and sometime the happy moments 
+            but what i love in us is the way we get together even after big fights.💕
+          </p>
+          <p>
+           We really resemble a happily married couple. 
+          </p>
+        </div>
+        <div class="back">
+          <img src="./1.jpg" alt="Img 1" />
+        </div>
+      </div>
+      <!--3rd page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Magic of You ✨💖</h2>
+          <p>
+            There’s a charm about you, a beauty that i can never express. It’s in the sparkle of your eyes, the warmth of your smile, and the effortless way you light up every moment in my life, even if you are not along me. 
+            Every little thing about you feels so good, that I often wonder—
+
+            I really got a best person of my life <br/>
+            
+            Even if we have many issues between us still i would appreciate you to tolerate me. Shonaa reh problem toh sabka bich mai hotai na but that doesent mean the bond is imperfect, 
+            nazar na lahge par we are far more better then others. <br/>
+
+            You are amazing.
+          
+            ✨💖
+          </p>
+        </div>
+        <div class="back">
+          <h2>The Strength Within You 💫✨</h2>
+          <p>
+            Shonaa you are really a strong girl, ik that ham tumko hamesha bacha jaisa treat karta hai but that's just all due to love and care for you but you genuinely are
+            a brave girl of your own life ham bolta tohg hai ki hamko bhi bahar rehna hai but ik ham nai reh paiga but you are doing this managing all by yourself i may not 
+            always express this to you but i genuinely appreciate you and ik in future jo bhi kuch hoga you will face it and at the end ham toh hai na apka liye. <br/>
+            Not only in your life You are a strength for me too. You are my driving force 
+          </p>
+        </div>
+      </div>
+      <!--4th page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Best Part of My Day🤞💖</h2>
+          <p>
+           That one hour that i get to talk to you is the best timee yarr, no matter we argue or show love what matters is your voice, all through the day i wait for that single one hour
+           where i can be happy with you. Honestly saying na rehh shona whenever we argue na i feel really sad after that. Ik im dumb but kya kare thora jhel lo hamko.
+           <br/>
+           I LOVEEEE YOUUU
+          </p>
+        </div>
+        <div class="back">
+          <img src="./2.jpg" alt="Img 1" />
+        </div>
+      </div>
+      <!--5th page-->
+      <div class="page">
+        <div class="front">
+          <h1>A Wish from the Heart 💫💖</h1>
+          <p>
+            Sometimes, I find myself wishing that we could turn back time, and relive all the moments when you were with me, shonaa rehh You always say na ki jo pehlai jaisa tha aisa abhi kuch bhi nai hai, its not like that rehh
+            kash tum yha hota ya kash ham dono sath hota na toh ham abhi bhi sab pehlai jaisa rakhta. Abhi bhi hamlog dur hai but you are the who goes around my mind all the time. <br/>
+            Pta hai I Manifest alot, ham jo bhi kuch sochta hai na it has you, you as my Co Founder of my life, at every instance your envolvement matters to me. <br/>
+            Life is Tough but i know you can make it easier for me. Jo insan parta nai hai woh tera ek bar ke tana sunke exam mai accha kar leta hai, joki pura sal mai koi nai karwa paya tha . <br/>
+            You are my everything. <br/>
+          </p>
+        </div>
+        <div class="back">
+          <h1>Always Here for You 💖✨</h1>
+          <p>
+           No matter what But your shona is always there for you even if you dont want my envolvement ham to tapak jaiga, not to stop you but to guide you, Ik you can do so many things by yourself but you have a partner
+           to lookafter your needs so that you can be the princess of my life. Honestly whenever you need me in your life i'll be behind you as your strength. <br/>
+           Even if hmako kuch hojatai na goruu mera bhoot sai mat darna woh tera body guard banke rahega.<br/>
+           I may be annoying sometimes,... most of the times... ya phir always but it's all for you to chill from your side so that i can get a chance to serve you. Ham suna hai na aisa karne sai pati log ko punya milta hai
+          </p>
+        </div>
+      </div>
+      <!--6th page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Beauty of You ✨💖</h2>
+          <p>
+            Aurr ab bat aya apka sundarta kaa, Ayee hayee shonaa rehh tum kya lagta hai yar, apart from jokes yarr anything you wear na rehh you really look good, i mean dekho haa from the beginning i use to see you na
+            i always felt haa ki im really lucky to have you i mean considering your sundarta apka figure its just on peak, you are the one who makes me feel like a king. <br/>
+            And jab wife itna sundar ho husband ko bhi toh thora human dikhna parega na usi chakar mai toh mera thora bohut glowup horha hai <br/>
+            Honestly I am not saying this because ist valentines, but because you are the most beautiful person i have in my life.
+          </p>
+        </div>
+        <div class="back">
+          <h2>Privatee private ✨💖</h2>
+          <p>
+           Bat jab atai mera apka upar nashaa ka, isme toh ham kya bole, jo nasha karata hai yarr ap its just absolute breathtaking, apka figure yarr its 18 out of 10 its just top notch
+           Jo lat haii yar apka us lat mai toh kabhi paractical nasha ka bhi lat nai lag sakta hamko, honestly ham tabse itna kuch likh diya but on this topic i have things to say but i'am not able to express it.
+           I just love being intact with you. i want to feel your breath while i go deep in you. i loveee being touchy with you kissing every inch of your body by smeelling your scent. <br/>
+           This valentine i may be not with you but my urges are always on you . <br/>
+           You are just divineee 
+          </p>
+        </div>
+      </div>
+      <!--7th page-->
+      <div class="page">
+        <div class="front">
+          <h2>Grateful for You🌹❤</h2>
+          <p>
+            I just wanted to take a moment to let you know how much I appreciate you. From the very start, you’ve been someone truly special to me more then anyone else.
+
+            Getting to be with you, even for a short time, has been a gift for me.
+            
+            Your presence, and the way you make every conversation feel meaningful rather then being dumb like me mean more to me than you know. I’m grateful that our paths crossed, and no matter what the future has for us, We will end up as a family together.
+            
+            This dream has always a priority on my prayers 💕
+          </p>
+        </div>
+        <div class="back">
+          <h2>Will You Be Mine? ❤️✨</h2>
+          <p>Will you be mine, will you be my Co founder of my life , will you be my partner in crime, will you be my best friend, will you be the person who knows me more then any one else, will you scold me for my mistakes 
+            Hug me when i cry, will you accept my flaws and treat me like a mother, Will you not leave me no matter what happens, will you be my everything
+            
+            Will you be mine? 💖💕 </p>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="front">
+          <img src="./4.png" alt="Img 1" />
+        </div>
+        <div class="back cover">
+          <h3>Love of My life</h3>
+          <p>
+            By KULDEEP aka Telachura<br /><a
+              href=""
+              target="_blank"
+              rel="nofollow"></a>
+
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="emoji">❤️‍🔥</div>
+<div class="emoji">🫶🏻</div>
+<div class="emoji">❤️</div>
+<div class="emoji">😘</div>
+<div class="emoji">👨‍❤️‍💋‍👨</div>
+<div class="emoji">💓</div>
+<div class="emoji">❣️</div>
+<div class="emoji">💘</div>
+<div class="emoji">💖</div>
+<div class="emoji">💙</div>
+<div class="emoji">💚</div>
+<div class="emoji">🥰</div>
+<div class="emoji">💗</div>
+
+<script>
+  const flipBook = (elBook) => {
+    elBook.style.setProperty("--c", 0); // Set current page
+    elBook.querySelectorAll(".page").forEach((page, idx) => {
+      page.style.setProperty("--i", idx);
+      page.addEventListener("click", (evt) => {
+        if (evt.target.closest("a")) return;
+        const curr = evt.target.closest(".back") ? idx : idx + 1;
+        elBook.style.setProperty("--c", curr);
+      });
+    });
+  };
+  
+  document.querySelectorAll(".book").forEach(flipBook);
+  
+</script>
+ 
+  </body>
+</html>
+
